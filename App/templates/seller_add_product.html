@@ -1,0 +1,86 @@
+{% extends 'seller_header.html'%}
+{%load static%}
+{%block content%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+</head>
+
+
+<body>
+   
+
+    <!-- ##### Breadcumb Area Start ##### -->
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url('{% static 'img/bg-img/breadcumb3.jpg'%}');">
+        <div class="bradcumbContent">
+            
+            <p><h2>Add Concert</h2></p>
+        </div>
+    </section>
+    <!-- ##### Breadcumb Area End ##### -->
+
+    <!-- ##### Login Area Start ##### -->
+    <section class="login-area section-padding-100">
+        <div class="container">
+        {% if msg %}
+          <h3 style="color: green;" align="center">{{msg}}</h3>
+        {% else %}
+          <h3 style="color: red;" align="center">{{msg1}}</h3>
+        {% endif %}
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                   
+                      
+                        <!-- Login Form -->
+                        <div class="login-form">
+                            <form action="{% url 'seller_add_product' %}" method="post" enctype="multipart/form-data">
+                                {% csrf_token%}
+                              <div class="form-group">
+                                    <label for="exampleInputPassword1">Concert Name</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Name" name="product_name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Concert Price</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Price" name="product_price" required>
+                                </div>
+                                 <div class="form-group">
+                                    <label for="exampleInputPassword1">Tickets Qty</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Qty" name="product_qty" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Concert Description</label>
+                                    <textarea type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Description" name="product_desc" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Image</label>
+                                    <input type="file" class="form-control" id="exampleInputPassword1" name="product_image" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Concert Venue</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Venue" name="venue" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Concert Time</label>
+                                    <input type="time" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Start Time" name="time" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Concert Date</label>
+                                    <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Start Date" name="date" required>
+                                </div>
+                                
+                                <button type="submit" class="btn oneMusic-btn mt-30" >Add Concert</button>
+                            </form>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Login Area End ##### -->
+   
+</body>
+
+</html>
+{%endblock%}

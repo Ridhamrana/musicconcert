@@ -1,0 +1,200 @@
+{% extends 'header.html'%}
+{%load static%}
+{%block content%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+</head>
+
+<body>
+
+    <!-- ##### Hero Area Start ##### -->
+    <section class="hero-area">
+        <div class="hero-slides owl-carousel">
+            <!-- Single Hero Slide -->
+            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+                <!-- Slide Img -->
+                <div class="slide-img bg-img" style="background-image: url('{% static "img/bg-img/bg-1.jpg"%}')";>
+                    
+                </div>
+                <!-- Slide Content -->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="hero-slides-content text-center">
+                                <h6 data-animation="fadeInUp" data-delay="100ms">Hurry Up!!! Limited Tickets</h6>
+                                <h2 data-animation="fadeInUp" data-delay="300ms">Book Now <span>Book Now</span></h2>
+                                <a data-animation="fadeInUp" data-delay="500ms" href="{%url 'events'%}" class="btn oneMusic-btn mt-50">Discover <i class="fa fa-angle-double-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Single Hero Slide -->
+            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+                <!-- Slide Img -->
+                <div class="slide-img bg-img" style="background-image: url('{% static "img/bg-img/bg-2.jpg"%}')";></div>
+                <!-- Slide Content -->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="hero-slides-content text-center">
+                                <h6 data-animation="fadeInUp" data-delay="100ms">Hurry Up!!! Limited Tickets</h6>
+                                <h2 data-animation="fadeInUp" data-delay="300ms">Book Now <span>Book Now</span></h2>
+                                <a data-animation="fadeInUp" data-delay="500ms" href="{%url 'events'%}" class="btn oneMusic-btn mt-50">Discover <i class="fa fa-angle-double-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+        <!-- ##### Featured Artist Area Start ##### -->
+    <section class="featured-artist-area section-padding-100 bg-img bg-overlay bg-fixed" style="background-image: url('{% static "img/bg-img/bg-4.jpg"%}')";>
+        <div class="container">
+            <div class="row align-items-end">
+                <div class="col-12 col-md-5 col-lg-4">
+                    <div class="featured-artist-thumb">
+                        <img src="{% static 'img/bg-img/fa.jpg'%}" alt="">
+                    </div>
+                </div>
+                <div class="col-12 col-md-7 col-lg-8">
+                    <div class="featured-artist-content">
+                        <!-- Section Heading -->
+                        <div class="section-heading white text-left mb-25">
+                            <p>See what’s new</p>
+                            <h2>Buy What’s New</h2>
+                        </div>
+                        <h4 style="color: white;">Arijit Singh Live In GhandhiNagar</h4>
+                        <p>Date: 25-05-2023 | <span>Time: 05:00 P.M.</span></p>
+                        <p>Arijit Singh is coming to GANDHINAGAR this MAY 2023 and we’re already preparing to sing his all-time hits out loud. Our favorite melody king is back to charm us with an experience like never before. The man who added all the right notes to our ‘Love storiyan’ and ensured our 'Khairiyat’ for many years is taking stage FINALLY to mesmerize us with some of his favourite chart-toppers including Channa Mereya, Tum Hi Ho, Phir Le Aya Dil, Duaa. So kabirrrrraaaaa, what are you waiting for? Go purchase your tickets to come sing-along to the beautiful melodies of Arijit Singh, LIVE!</p>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="load-more-btn text-center">
+                                    <a href="{% url 'events' %}" class="btn oneMusic-btn">Book Now<i class="fa fa-angle-double-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Featured Artist Area End ##### -->
+    <!-- ##### Hero Area End ##### -->
+   <section class="latest-albums-area section-padding-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading style-2">
+                        <p>See what’s new</p>
+                        <h2>Concerts</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Breadcumb Area End ##### -->
+
+
+    <!-- ##### Events Area Start ##### -->
+    <section class="events-area" style="margin-top: -100px;">
+        <div class="container">
+            <div class="row">
+                {% for i in products %}
+                <!-- Single Event Area -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-event-area mb-30">
+                        <div class="event-thumbnail">
+                            <img src="{{i.product_image.url}}" alt="Image" style="height: 250px; width: 500px;">
+                        </div>
+                        <div class="event-text">
+                           <a class="post-classic-link" href="{% url 'product_detail' pk=i.pk %}"><h4>{{i.product_name}}</h4></a> 
+                            <div class="event-meta-data">
+                                 <p><time class="post-classic-time event-place" datetime="2019-09-19">{{i.product_date}} | {{i.product_time}}</time></p>
+                                 <p class="event-place">{{i.product_venue}}</p>
+                                 <a class="post-classic-link" href="{% url 'product_detail' pk=i.pk %}">Read more</a>
+                            </div>
+                             {% if request.session.email %}
+                              {% if cart_flag %}
+                                <a class="btn see-more-btn" href="{% url 'remove_from_cart' pk=i.pk %}">Remove from Cart</a>
+                              {% else %}
+                                <a class="btn see-more-btn" href="{% url 'add_to_cart' pk=i.pk %}">Add to Cart</a>
+                              {% endif %}
+
+                                {% endif %}
+                            <a href="{% url 'product_detail' pk=i.pk %}" class="btn see-more-btn">Buy Tickets</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <!-- Single Event Area -->
+            </div> 
+            <br>
+            <br>             
+        </div>
+    </section>
+
+
+
+
+    <!-- ##### Miscellaneous Area End ##### -->
+
+    <!-- ##### Contact Area Start ##### -->
+    <section class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img" style="background-image: url('{% static "img/bg-img/bg-2.jpg"%}')";>        
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading white wow fadeInUp" data-wow-delay="100ms">
+                        <p>See what’s new</p>
+                        <h2>Get In Touch</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <!-- Contact Form Area -->
+                    <div class="contact-form-area">
+                        <form action="#" method="post">
+                            <div class="row">
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="form-group wow fadeInUp" data-wow-delay="100ms">
+                                        <input type="text" class="form-control" id="name" placeholder="Name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="form-group wow fadeInUp" data-wow-delay="200ms">
+                                        <input type="email" class="form-control" id="email" placeholder="E-mail">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group wow fadeInUp" data-wow-delay="300ms">
+                                        <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group wow fadeInUp" data-wow-delay="400ms">
+                                        <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">
+                                    <button class="btn oneMusic-btn mt-30" type="submit">Send <i class="fa fa-angle-double-right"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Contact Area End ##### -->
+
+   
+</body>
+
+</html>
+{%endblock%}

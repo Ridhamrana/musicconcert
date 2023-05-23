@@ -1,0 +1,127 @@
+
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+  <head>
+    
+  </head>
+  <body>
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url('{% static 'img/bg-img/breadcumb3.jpg'%}');">
+        <div class="bradcumbContent">
+            {% if carts %}
+            <p>See what’s new</p>
+            <h2>Cart</h2>
+            {% else %}
+            <h2>No Concert in Cart</h2>
+            {% endif %}
+        </div>
+    </section>
+    <section class="events-area section-padding-100">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8 cart">
+                    {% for i in carts %}    
+                    <div class="border-top border-bottom">
+                        <div class="row main align-items-center">
+                            <div class="col"><figure class="post-classic-figure"><a href="{% url 'product_detail' pk=i.product.pk %}"><img src="{{i.product.product_image.url}}" alt="" width="100px" height="100px"/></a></figure></div>
+                            <div class="col">
+                                <div class="row text-muted">
+                                    <h5 class="post-classic-title"><a href="{% url 'product_detail' pk=i.product.pk %}">{{i.product.product_name}}</a></h5>
+                                </div>
+                                <div class="row">
+                                    {{i.product.product_date}} {{i.product.product_time}}
+                                </div>
+                            </div>
+                            <div class="col">
+                                <form method="post" action="{% url 'change_qty' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name='cid' value="{{i.pk}}">
+                                    <input type="number" name="product_qty" value="{{i.product_qty}}" min="1" max="10" onchange="this.form.submit()">
+                                </form>
+                                
+                            </div>
+                            <div class="col"> &#X20B9; {{i.product.product_price}} <a href="{% url 'remove_from_cart' pk=i.pk %}"><span class="close">&#10005;</span></a></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+                <div class="col-md-4 summary">
+                    <div><h5><b>Summary</b></h5></div>
+                    <hr>
+                    <div class="row">
+                        <div class="col">TOTAL CONCERTS</div>
+                        <div class="col text-right">{{request.session.cart_count}}</div>
+                    </div>
+                    
+                    <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                        <div class="col"><h6>TOTAL PRICE</h6></div>
+                        <div class="col text-right"><h5>&#X20B9; {{net_price}}</h5></div>
+                    </div>
+                     
+                    <input type="hidden" name="amount" value="{{net_price}}">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="load-more-btn text-center mt-50">
+                                <input type="submit" id="rzp-button1" name="action" value="Proceed To Payment" class="btn oneMusic-btn">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="load-more-btn mt-30">
+                        <a href="{% url 'index'%}" class="btn oneMusic-btn"><i class="fa fa-angle-double-left"></i> Back to Home</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+    var options = {
+        "key": "rzp_test_GEn8k3ETX4fIpy", // Enter the Key ID generated from the Dashboard
+        "amount": "{{net_price}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "OneMusic",
+        "description": "Test Transaction",
+        "image": "https://example.com/your_logo",
+        "order_id": "{{carts.razorpay_order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "handler": function (response){
+            window.location.href=`http://localhost:8000/success/?razorpay_payment_id=${response.razorpay_payment_id}&razorpay_order_id=${response.razorpay_order_id}%razorpay_signature=${response.razorpay_signature}`
+
+            alert(response.razorpay_payment_id);
+            alert(response.razorpay_order_id);
+            alert(response.razorpay_signature)
+        },
+      
+        "theme": {
+            "color": "#3399cc"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.on('payment.failed', function (response){
+            alert(response.error.code);
+            alert(response.error.description);
+            alert(response.error.source);
+            alert(response.error.step);
+            alert(response.error.reason);
+            alert(response.error.metadata.order_id);
+            alert(response.error.metadata.payment_id);
+    });
+    document.getElementById('rzp-button1').onclick = function(e){
+        rzp1.open();
+        e.preventDefault();
+    }
+    </script>
+
+  </body>
+
+</html>
+{% endblock %}

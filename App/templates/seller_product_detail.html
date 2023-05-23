@@ -1,0 +1,137 @@
+{% extends 'seller_header.html'%}
+{%load static%}
+{%block content%}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+
+</head>
+
+<body>
+        <section class="breadcumb-area bg-img bg-overlay" style="background-image:  url({{product.product_image.url}});">
+          <div class="bradcumbContent">
+              <h2>{{product.product_name}}</h2>
+          </div>
+        </section>
+        
+      <section class="section section-lg bg-default login-area section-padding-100">
+        <div class="container">
+          <div class="row row-50">
+            <div class="col-md-6 text-center">
+              <div class="box-image-1"><img src="{{product.product_image.url}}" alt="" width="600" height="300"/>
+              </div>
+
+
+            </div>
+            <div class="col-md-6">
+              <div class="box-about">
+                <div class="box-about-title-wrap">
+                {% if msg %}
+                <h5 style="color:#ABCDEF">{{msg}}</h5>
+                {% else %}
+                <h5 style="color:red">{{msg1}}</h5>
+                {% endif %}
+                <div class="row">
+                  <div class="col">
+                    <h6 class="mb-0">Concert: </h6>
+                  </div>
+                  <div class="col">
+                    <h6 class="text-muted mb-0">{{product.product_name}}</h6>
+                  </div>
+                </div>
+                <hr>
+                  <div class="row">
+                  <div class="col">
+                    <h6 class="mb-0">Price: </h6>
+                  </div>
+                  <div class="col">
+                    <h6 class="text-muted mb-0">&#X20B9; {{product.product_price}}</h6>
+                  </div>
+                </div>
+                
+                  <hr>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <h6 class="mb-0">Date: </h6>
+                  </div>
+                  <div class="col">
+                    <h6 class="text-muted mb-0">{{product.product_date}}</h6>
+                  </div>
+                </div>
+                <hr>
+               <div class="row">
+                  <div class="col">
+                    <h6 class="mb-0">Time: </h6>
+                  </div>
+                  <div class="col">
+                    <h6 class="text-muted mb-0">{{product.product_time}}</h6>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col">
+                    <h6 class="mb-0">Venue: </h6>
+                  </div>
+                  <div class="col">
+                    <h6 class="text-muted mb-0">{{product.product_venue}}</h6>
+                  </div>
+                </div>
+                <hr>
+                <h5 class="box-about-post-title">Hurry Up! Limited Tickets</h5>
+                <br>
+                <div class="row">
+                  <div class="col">
+                    <h6 class="mb-0">Qty: </h6>
+                  </div>
+                  <div class="col">
+                    <h6 class="text-muted mb-0">{{product.product_qty}}</h6>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col">
+              <h5 class="mb-0">Description: </h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <h6 class="text-muted mb-0">{{product.product_desc}}</h6>
+            </div>
+          </div>
+          <hr>
+           <div class="row">
+              <div class="col-12">
+                  <div class="load-more-btn mt-30" style="float: right;">
+                      <a href="{% url 'seller_product_edit' pk=product.pk %}" class="btn oneMusic-btn">Edit Concert <i class="fa fa-angle-double-right"></i></a>
+                  </div>
+              </div>
+          </div>
+          
+          <div class="row">
+              <div class="col-12">
+                  <div class="load-more-btn mt-30">
+                      <a href="{% url 'seller_view_product' %}" class="btn oneMusic-btn"><i class="fa fa-angle-double-left"></i> Back To Concerts</a>
+                  </div>
+              </div>
+          </div>
+                
+        </div>
+       
+        
+           
+      </section>
+
+            
+  </body>
+</html>
+
+{% endblock %}

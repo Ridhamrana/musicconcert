@@ -1,0 +1,37 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+<html>
+<head>
+	
+</head>
+<body>
+	<!-- ##### Breadcumb Area Start ##### -->
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image:  url({% static 'img/bg-img/breadcumb3.jpg' %});">
+        <div class="bradcumbContent">
+            <p>See what’s new</p>
+            <h2>Booking Status</h2>
+        </div>
+    </section>
+    <section class="events-area section-padding-100">
+        <div class="container">
+            <div class="">
+				<h2>{{msg}}</h2>
+				<p>Name: {{user.fname}}</p>
+				<p>Payment Status: Paid</p>
+				<p>Order Id: {{carts.razorpay_order_id}}</p>
+			</div>
+				<div class="row">
+			        <div class="col-12">
+			            <div class="load-more-btn mt-30">
+			                <a href="{% url 'index'%}" class="btn oneMusic-btn"><i class="fa fa-angle-double-left"></i> Back to Home</a>
+			            </div>
+			        </div>
+			    </div>
+		    
+		</div>
+	</section>
+</body>
+</html>
+
+{% endblock %}

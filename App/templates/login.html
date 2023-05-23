@@ -1,0 +1,101 @@
+{% extends 'header.html'%}
+{%load static%}
+{%block content%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>One Music - Modern Music HTML5 Template</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="img/core-img/favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <!-- ##### Breadcumb Area Start ##### -->
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url({% static 'img/bg-img/breadcumb3.jpg' %});">
+        <div class="bradcumbContent">
+            <p>See what’s new</p>
+            <h2>Login</h2>
+        </div>
+    </section>
+    <!-- ##### Breadcumb Area End ##### -->
+
+    <!-- ##### Login Area Start ##### -->
+    <section class="login-area section-padding-100">
+        <div class="container">
+        {% if msg %}
+          <h3 style="color: green;" align="center">{{msg}}</h3>
+        {% else %}
+          <h3 style="color: red;" align="center">{{msg1}}</h3>
+        {% endif %}
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                    <div class="login-content">
+                        <h3>Welcome Back</h3>
+                        <!-- Login Form -->
+                        <div class="login-form">
+                            <form action="{% url 'login' %}" method="post">
+                                {% csrf_token%} 
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input type="email" id="email_field" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter E-mail" name="email" value="{{email}}">
+                                    <span id="email_error" style="color: red;"></span>
+                                    <small id="emailHelp" class="form-text text-muted"><i class="fa fa-lock mr-2"></i>We'll never share your email with anyone else.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password" value="{{password}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1"><a href="{% url 'forgot_password' %}">Forgot Password?</a></label>
+                                </div>
+                                <button type="submit" class="btn oneMusic-btn mt-30">Login</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Login Area End ##### -->
+    
+<script>
+        $("#email_field").change(function(){ 
+            var email=$(this).val();
+            $.ajax({
+                url: '/ajax/form_validation/',
+                data: {'email':email}, 
+                datatype: 'json',
+                success: function (data){
+
+                    if (!(data.is_taken)) { document.getElementById("email_error").innerHTML="This Email ID is Already Exist"}
+
+                    else{
+
+                        /*Nothing to do just normal course of program"/
+                    }
+                }
+
+I           });
+
+        });
+
+</script>
+
+   
+</body>
+
+</html>
+{%endblock%}

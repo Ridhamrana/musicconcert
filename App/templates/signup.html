@@ -1,0 +1,112 @@
+{% extends 'header.html'%}
+{%load static%}
+{%block content%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   
+
+</head>
+
+<body>
+   
+
+    <!-- ##### Breadcumb Area Start ##### -->
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image:  url({% static 'img/bg-img/breadcumb3.jpg' %});">
+        <div class="bradcumbContent">
+            <p>See what’s new</p>
+            <h2>Sign up</h2>
+        </div>
+    </section>
+    <!-- ##### Breadcumb Area End ##### -->
+
+    <!-- ##### Login Area Start ##### -->
+    <section class="login-area section-padding-100">
+        <div class="container">
+        {% if msg %}
+          <h3 style="color: green;" align="center">{{msg}}</h3>
+        {% else %}
+          <h3 style="color: red;" align="center">{{msg1}}</h3>
+        {% endif %}
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                    <div class="login-content">
+                        <h3>Welcome Back</h3>
+                        <!-- Login Form -->
+                        <div class="login-form">
+                            <form action="{% url 'signup' %}" method="post">
+                                {% csrf_token%} 
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">User Type</label>
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <div class="form-outline flex-fill mb-0">
+                                            <select name="usertype" class="form-control">
+                                                <option value="User">User</option>
+                                                <option value="Organizer">Organizer</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">First Name</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter First Name" name="fname" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Last Name</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Last Name" name="lname" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Phone Number</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Phone number" name="mobile" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email Address</label>
+                                    <input type="email" id="email_field" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter E-mail" name="email" required>
+                                    <span id="email_error" style="color: red;"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter Password" name="password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Confirm Password</label>
+                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter Confirm Password" name="cpassword" required>
+                                </div>
+                                <button type="submit" class="btn oneMusic-btn mt-30">Sign up</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Login Area End ##### -->
+    <script>
+        $("#email_field").change(function(){ 
+            var email=$(this).val();
+            $.ajax({
+                url: '/ajax/form_validation/',
+                data: {'email':email}, 
+                datatype: 'json',
+                success: function (data){
+
+                    if (data.is_taken) { document.getElementById("email_error").innerHTML="This Email ID is Already Exist"}
+
+                    else{
+
+                        /*Nothing to do just normal course of program"/
+                    }
+                }
+
+I           });
+
+        });
+
+</script>
+
+    
+</body>
+
+</html>
+{%endblock%}

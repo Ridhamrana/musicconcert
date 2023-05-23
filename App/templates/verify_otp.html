@@ -1,0 +1,49 @@
+{% extends 'header.html'%}
+{%load static%}
+{%block content%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+
+</head>
+
+<body>
+    <!-- ##### Breadcumb Area Start ##### -->
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url({% static 'img/bg-img/breadcumb3.jpg'%});">
+        <div class="bradcumbContent">
+            <h2>Verify OTP</h2>
+        </div>
+    </section>
+    <section class="login-area section-padding-100">
+        <div class="container">
+        {% if msg %}
+          <h3 style="color: green;" align="center">{{msg}}</h3>
+        {% endif %}
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                    <div class="login-content">
+                        <h3>Welcome Back</h3>
+                        <!-- Login Form -->
+                        <div class="login-form">
+                            <form action="{% url 'verify_otp' %}" method="post">
+                                {% csrf_token%} 
+                                <input type="hidden" value="{{email}}" name="email">
+                                <input type="hidden" value="{{otp}}" name="otp">
+                                <div class="form-group">
+                                    <label for="exampleInputtext1">OTP</label>
+                                    <input type="number" class="form-control" id="exampleInputtext1" placeholder="Enter OTP" name="uotp" required>
+                                </div>
+                                <button type="submit" class="btn oneMusic-btn mt-30">Verify OTP</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
+{%endblock%}

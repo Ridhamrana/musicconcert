@@ -1,0 +1,85 @@
+{% extends 'seller_header.html'%}
+{%load static%}
+{%block content%}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+
+</head>
+
+<body>
+        <!-- ##### Breadcumb Area Start ##### -->
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url('{% static 'img/bg-img/breadcumb3.jpg'%}');">
+        <div class="bradcumbContent">
+            <p>See what’s new</p>
+            <h2>Edit Concert</h2>
+        </div>
+    </section>
+    {% if msg %}
+            <b style="color:#ABCDEF">{{msg}}</b>
+          {% else %}
+            <b style="color:red">{{msg1}}</b>
+          {% endif %}
+      <!--Mailform-->
+    <section class="event-area section-padding-100">
+        <div class="container">
+        {% if msg %}
+          <h3 style="color: green;" align="center">{{msg}}</h3>
+        {% else %}
+          <h3 style="color: red;" align="center">{{msg1}}</h3>
+        {% endif %}
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                  <div class="login-form">
+                    <form class="rd-form rd-mailform text-left" method="post" action="{% url 'seller_product_edit' pk=product.pk %}" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="form-group">
+                        <img src="{{product.product_image.url}}" alt="Image" style="height: 250px; width: 500px;">
+                          <input class="form-input" type="file" name="product_image">
+                      </div>
+                      <div class="form-group">
+                          <label class="form-label" for="contact-fname">{{product.product_name}}</label>
+                          <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Name" name="product_name">
+                      </div>
+                      <div class="form-group">
+                          <label class="form-label" for="contact-lname">{{product.product_price}}</label>
+                          <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Price" name="product_price" >
+                      </div>
+                        <div class="form-group">
+                          <label class="form-label">{{product.product_qty}}</label>
+                          <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Qty" name="product_qty" >
+                      </div>
+                      <div class="form-group">
+                          <label class="form-label">{{product.product_desc}}</label>
+                          <textarea type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Description" name="product_desc" ></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label" for="contact-address">{{product.product_venue}}</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Venue" name="venue" >
+                      </div>
+                      <div class="form-group">
+                          <label class="form-label" for="contact-fname">{{product.product_time}}</label>
+                          <input type="time" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Start Time" name="time" >
+                      </div>
+                      <div class="form-group">
+                          <label class="form-label" for="contact-lname">{{product.product_date}}</label>
+                          <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Start Date" name="date" >
+                      </div>
+                                
+                      <button type="submit" class="btn oneMusic-btn mt-30" >Update event</button>   
+         
+                  </form>
+                </div>
+              </div>
+            </div>
+        </div>
+      </section>
+      
+  </body>
+</html>
+
+{% endblock %}

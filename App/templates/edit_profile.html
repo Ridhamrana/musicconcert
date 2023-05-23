@@ -1,0 +1,107 @@
+{% extends 'header.html'%}
+{%load static%}
+{%block content%}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+
+</head>
+
+<body>
+        <!-- ##### Breadcumb Area Start ##### -->
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url('{% static 'img/bg-img/breadcumb3.jpg'%}');">
+        <div class="bradcumbContent">
+            <p>See what’s new</p>
+            <h2>Edit Profile</h2>
+            <br>
+            <br>
+        </div>
+    </section>
+    <!-- ##### Breadcumb Area End ##### -->
+    {% if msg %}
+    <h4 style="color: red; text-align: center;">{{msg}}</h4>
+    {% endif %}
+
+  <section style="background-color: #eee;">
+    <form action="{% url 'edit_profile' %}" method="post">
+      {% csrf_token%}
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img src="https://pluspng.com/img-png/png-user-icon-circled-user-icon-2240.png" alt="avatar"
+              class="rounded-circle img-fluid" style="width: 150px;">
+            <h5 class="my-3">{{user.fname}} {{user.lname}}</h5>
+          </div>
+        </div>
+          <div class="col-12">
+            <div class="load-more-btn text-center mb-70">
+              <a href="{% url 'index'%}" class="btn oneMusic-btn"><i class="fa fa-angle-double-left"></i> Back to Home</a>
+            </div>
+          </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">First Name</p>
+              </div>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="{{user.fname}}" name="fname" required>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Last Name</p>
+              </div>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="{{user.lname}}" name="lname" required>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Mobile</p>
+              </div>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="{{user.mobile}}" name="mobile" required>
+                <p class="text-muted mb-0"> </p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email</p>
+              </div>
+              <div class="col-sm-9">
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="{{user.email}}" name="email" required>
+                <p class="text-muted mb-0"></p>
+              </div>
+            </div>
+            <hr>
+
+          </div>
+        </div>
+        <div class="col-12">
+            <div class="load-more-btn text-center mb-70">
+                <button type="submit" class="btn oneMusic-btn">Update</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </form>
+</section>
+
+   
+</body>
+
+</html>
+{%endblock%}
