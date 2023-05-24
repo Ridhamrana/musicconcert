@@ -45,7 +45,7 @@ def events(request):
 
 
 def contacts(request):
-	return render(request,"contacts.html")
+	return render(request,"contact.html")
 
 def seller_contacts(request):
 	return render(request,"seller_contacts.html")
@@ -324,18 +324,21 @@ def product_detail(request,pk):
 	return render(request,'product_detail.html',{'product':product,'cart_flag':cart_flag})
 
 def cart(request):
-	net_price=0
-	user=User.objects.get(email=request.session['email'])
-	carts=Cart.objects.filter(user=user,payment_status=False)
-	for i in carts:
-		net_price+=i.total_price
-	request.session['cart_count']=len(carts)
-	client = razorpay.Client(auth = (settings.KEY_ID,settings.KEY_SECRET))
-	payments=client.order.create({'amount':net_price*100, 'currency':'INR', 	'payment_capture':1})
-	carts.razorpay_order_id=payments['id']
-	for i in carts:
-		i.save()
-	return render(request,'cart.html',{'carts':carts,'net_price':net_price,'payments':payments})
+	try:
+		net_price=0
+		user=User.objects.get(email=request.session['email'])
+		carts=Cart.objects.filter(user=user,payment_status=False)
+		for i in carts:
+			net_price+=i.total_price
+		request.session['cart_count']=len(carts)
+		client = razorpay.Client(auth = (settings.KEY_ID,settings.KEY_SECRET))
+		payments=client.order.create({'amount':net_price*100, 'currency':'INR', 'payment_capture':0})
+		carts.razorpay_order_id=payments['id']
+		for i in carts:
+			i.save()
+		return render(request,'cart.html',{'carts':carts,'net_price':net_price,'payments':payments})
+	except:
+		return render(request,'cart.html')
 
 def add_to_cart(request,pk):
 	product=Product.objects.get(pk=pk)

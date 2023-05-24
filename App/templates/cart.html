@@ -43,7 +43,7 @@
                                 </form>
                                 
                             </div>
-                            <div class="col"> &#X20B9; {{i.product.product_price}} <a href="{% url 'remove_from_cart' pk=i.pk %}"><span class="close">&#10005;</span></a></div>
+                            <div class="col"> &#X20B9; {{i.product.product_price}} <a href="{% url 'remove_from_cart' pk=i.product.pk %}"><span class="close">&#10005;</span></a></div>
                         </div>
                     </div>
                     {% endfor %}

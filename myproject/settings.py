@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+#'localhost', '.pythonanywhere.com'
 # Application definition
 
 INSTALLED_APPS = [
@@ -44,12 +44,16 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django_session_timeout.middleware.SessionTimeoutMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+SESSION_EXPIRE_SECONDS = 60
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+SESSION_TIMEOUT_REDIRECT = '/'
 
 ROOT_URLCONF = 'myproject.urls'
 
@@ -117,7 +121,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
 
 # Default primary key field type
@@ -133,5 +137,5 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'br2890218@gmail.com'
 EMAIL_HOST_PASSWORD = 'lbbqqtirtspsyznx'
 
-KEY_ID='rzp_test_GEn8k3ETX4fIpy'
-KEY_SECRET='DRUL0gJBdAeAWxxQOTuvVEpX'
+KEY_ID='rzp_test_gakFXq2yOvt7LE'
+KEY_SECRET='a6C6iIVpLqE3s3dSuVyQcRor'
